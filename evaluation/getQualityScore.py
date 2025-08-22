@@ -11,7 +11,7 @@ from QualityModel import QualityModel
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--data-dir', type=str, default='/data/fboutros/CR-FIQA-Data/',
+    parser.add_argument('--data-dir', type=str, default='/data/atzori/',
                         help='Root dir for evaluation dataset')
     parser.add_argument('--pairs', type=str, default='pairs.txt',
                         help='lfw pairs.')
@@ -19,13 +19,11 @@ def parse_arguments(argv):
                         help='list of evaluation datasets (,)  e.g.  XQLFW, lfw,calfw,agedb_30,cfp_fp,cplfw,IJBC.')
     parser.add_argument('--gpu_id', type=int, default=0,
                         help='GPU id.')
-    parser.add_argument('--model_path', type=str, default="/data/fboutros/CR-FIQA-Data/arcface_torch_FIQ/output/R50_FIQA_CASIA_CRFIQAS_PP",
+    parser.add_argument('--model_path', type=str, default="../output/ViT-S-MS1MV2_token/",
                         help='path to pretrained evaluation.')
-    parser.add_argument('--model_id', type=str, default="295672",
-                        help='digit number in backbone file name')
-    parser.add_argument('--backbone', type=str, default="iresnet50_FC",
-                        help=' iresnet100 or iresnet50 ')
-    parser.add_argument('--score_file_name', type=str, default="R50_FIQA_CASIA_CRFIQAS_PP47.txt",
+    parser.add_argument('--backbone', type=str, default="vit_FC",
+                        help='vit_FC or iresnet100 or iresnet50 ')
+    parser.add_argument('--score_file_name', type=str, default="ViT-FIQA-S.txt",
                         help='score file name, the file will be store in the same data dir')
     parser.add_argument('--color_channel', type=str, default="BGR",
                         help='input image color channel, two option RGB or BGR')
