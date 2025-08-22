@@ -4,7 +4,7 @@
 
 <div align="center", padding="30px">
   <span style="display:block; height: 20em;">&emsp;</span>
-  <p><b>Andrea Atzori</b><sup>; 1</sup> &emsp; <b>Fadi Boutros</b><sup> 1</sup>; <b>Naser Damer</b><sup> 1,2</sup></p>
+  <p><b>Andrea Atzori</b><sup> 1</sup>; &emsp; <b>Fadi Boutros</b><sup> 1</sup>; &emsp; <b>Naser Damer</b><sup> 1,2</sup></p>
   <p><sup>1 </sup>Fraunhofer IGD &emsp; <sup>2 </sup>Technische Universität Darmstadt</p>
   <p>Accepted at ICCV Workshops 2025</p>
 </div>
