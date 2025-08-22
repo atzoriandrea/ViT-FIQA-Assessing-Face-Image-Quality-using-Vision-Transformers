@@ -18,7 +18,7 @@
 
 ## <div align="center"> Overview 🔎 </div>
 <div align="center">
-    <img width="50%" src="ViT-FIQA.png">
+    <img width="100%" src="ViT-FIQA.png">
 </div>
 
 An overview of the proposed ViT-FIQA for assessing the quality of face samples.
