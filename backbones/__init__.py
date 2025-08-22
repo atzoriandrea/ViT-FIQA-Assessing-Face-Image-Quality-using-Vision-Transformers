@@ -61,13 +61,6 @@ def get_model(name, **kwargs):
             img_size=112, patch_size=9, num_classes=num_features, embed_dim=384, depth=12,
             num_heads=6, drop_path_rate=0.1, norm_layer="ln", mask_ratio=0.1, mode=mode)
 
-    elif name == "vit_s_no_qt":
-        num_features = kwargs.get("num_features", 384)
-        from .vit_qs_nt import VisionTransformer
-        return VisionTransformer(
-            img_size=112, patch_size=8, num_classes=num_features, embed_dim=384, depth=12,
-            num_heads=6, drop_path_rate=0.1, norm_layer="ln", mask_ratio=0.1)
-    
     elif name == "vit_s_dp005_mask_0":  # For WebFace42M
         num_features = kwargs.get("num_features", 512)
         from .vit import VisionTransformer
