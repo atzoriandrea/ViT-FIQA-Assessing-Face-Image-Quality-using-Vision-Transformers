@@ -91,3 +91,7 @@ If you found this work helpful for your research, please cite the article with t
 This project is licensed under the terms of the Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) license.
 
 Copyright (c) 2025 Fraunhofer Institute for Computer Graphics Research IGD, Darmstadt.
+
+<div align="center">
+    <img width="100%" src="https://www.iuk.fraunhofer.de/content/dam/iuk/de/images/Logos/22_igd_web.svg">
+</div>
