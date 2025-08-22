@@ -4,7 +4,7 @@
 
 <div align="center", padding="30px">
   <span style="display:block; height: 20em;">&emsp;</span>
-  <p><b>Andrea Atzori</b><sup> 1</sup> &emsp; <b>Fadi Boutros</b><sup> 1</sup>; <b>Naser Damer</b><sup> 1,2</sup> &emsp</p>
+  <p><b>Andrea Atzori</b><sup>; 1</sup> &emsp; <b>Fadi Boutros</b><sup> 1</sup>; <b>Naser Damer</b><sup> 1,2</sup></p>
   <p><sup>1 </sup>Fraunhofer IGD &emsp; <sup>2 </sup>Technische Universität Darmstadt</p>
   <p>Accepted at ICCV Workshops 2025</p>
 </div>
@@ -32,7 +32,7 @@ Face Image Quality Assessment (FIQA) aims to predict the utility of a face image
 
 ### Setup
 
-Install all necessary packages in a Python >=3.10 environment:
+Install all necessary packages in a Python >=3.8 environment:
 ```
    pip install torch torchvision numpy opencv-python mxnet easydict scipy==1.8.1 numpy==1.23.1
 ```
