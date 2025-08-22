@@ -51,7 +51,7 @@ To extract scores for images in a folder,
                                 [--backbone BACKBONE] 
                                 [--score_file_name SCORE_FILE_NAME] 
                                 [--color_channel COLOR_CHANNEL]
-    GraFIQs
+    ViT-FIQA
 
     options:
     --data-dir DATA_DIR   Root dir for evaluation dataset
