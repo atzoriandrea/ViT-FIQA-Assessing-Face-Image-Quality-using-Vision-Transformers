@@ -50,7 +50,7 @@ def get_model(name, **kwargs):
         num_features = kwargs.get("num_features", 512)
         from .vit import VisionTransformer
         return VisionTransformer(
-            img_size=112, patch_size=8, num_classes=num_features, embed_dim=512, depth=12,
+            img_size=112, patch_size=9, num_classes=num_features, embed_dim=512, depth=12,
             num_heads=6, drop_path_rate=0.1, norm_layer="ln", mask_ratio=0.1)
 
     elif name == "vit_s_qs":
@@ -58,7 +58,7 @@ def get_model(name, **kwargs):
         mode = kwargs.get("mode", "token")
         from .vit_qs import VisionTransformer
         return VisionTransformer(
-            img_size=112, patch_size=8, num_classes=num_features, embed_dim=512, depth=12,
+            img_size=112, patch_size=9, num_classes=num_features, embed_dim=512, depth=12,
             num_heads=6, drop_path_rate=0.1, norm_layer="ln", mask_ratio=0.1, mode=mode)
 
     elif name == "vit_s_dp005_mask_0":  # For WebFace42M
