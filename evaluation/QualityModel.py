@@ -29,7 +29,7 @@ class QualityModel(FaceModel):
             #num_heads=6, drop_path_rate=0.1, norm_layer="ln", mask_ratio=0.1)
             backbones = VisionTransformer(
                 img_size=112, patch_size=9, num_classes=512, embed_dim=512, depth=12,
-                num_heads=8, drop_path_rate=0.1, norm_layer="ln", mask_ratio=0.1, mode="crfiqa")
+                num_heads=8, drop_path_rate=0.1, norm_layer="ln", mask_ratio=0.1, mode="token")
     
         else:
             backbones = VisionTransformer(img_size=112, patch_size=8, num_classes=512, embed_dim=512, depth=12,
