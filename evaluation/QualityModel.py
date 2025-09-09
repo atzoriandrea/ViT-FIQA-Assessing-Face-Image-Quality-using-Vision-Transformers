@@ -24,9 +24,6 @@ class QualityModel(FaceModel):
         elif (backbone=="iresnet100"):
             backbones = iresnet100(num_features=512, qs=1, use_se=False).to(f"cuda:{ctx}")
         elif (backbone=="vit_FC"):
-            #backbones =VisionTransformer(
-            #img_size=112, patch_size=8, num_classes=384, embed_dim=384, depth=12,
-            #num_heads=6, drop_path_rate=0.1, norm_layer="ln", mask_ratio=0.1)
             backbones = VisionTransformer(
                 img_size=112, patch_size=9, num_classes=512, embed_dim=512, depth=12,
                 num_heads=8, drop_path_rate=0.1, norm_layer="ln", mask_ratio=0.1, mode="token")
