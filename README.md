@@ -10,7 +10,7 @@
 </div>
 
 <div align="center">
-        <a href="https://www.arxiv.org/pdf/2508.13957"><img src="https://github.com/jankolf/assets/blob/main/badges/download-paper-arxiv-c1.svg?raw=true"></a>
+        <a href="https://www.arxiv.org/abs/2508.13957"><img src="https://github.com/jankolf/assets/blob/main/badges/download-paper-arxiv-c1.svg?raw=true"></a>
         &emsp;
         <a href="https://drive.google.com/drive/u/0/folders/1CZVZnZbnoNaxk_xHhIHU5yLRi7Iqa1jP"><img src="https://github.com/jankolf/assets/blob/main/badges/download-models-c1.svg?raw=true"></a>
 </div>
