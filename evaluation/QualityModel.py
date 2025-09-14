@@ -29,9 +29,8 @@ class QualityModel(FaceModel):
                 num_heads=8, drop_path_rate=0.1, norm_layer="ln", mask_ratio=0.1, mode="token")
     
         else:
-            backbones = VisionTransformer(img_size=112, patch_size=8, num_classes=512, embed_dim=512, depth=12,
-                                    mlp_ratio=5, num_heads=8, drop_path_rate=0.1, norm_layer="ln",
-                                    mask_ratio=0.0).to(f"cuda:{ctx}")
+            raise NotImplementedError("Error. Backbone not found!")
+
         if (backbone=="vit_FC" or backbone=="iresnet50_FC"):
             dict_checkpoint = torch.load(os.path.join(prefix,"model.pt"))
             print(dict_checkpoint.keys)
