@@ -75,14 +75,13 @@ Please refer to [CR-FIQA repository](https://github.com/fdbtrs/CR-FIQA/tree/main
 
 If you found this work helpful for your research, please cite the article with the following bibtex entry:
 ```
-@misc{atzori2025vitfiqaassessingfaceimage,
-      title={ViT-FIQA: Assessing Face Image Quality using Vision Transformers}, 
-      author={Andrea Atzori and Fadi Boutros and Naser Damer},
-      year={2025},
-      eprint={2508.13957},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2508.13957}, 
+@InProceedings{Atzori_2025_ICCV,
+    author    = {Atzori, Andrea and Boutros, Fadi and Damer, Naser},
+    title     = {ViT-FIQA: Assessing Face Image Quality using Vision Transformers},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) Workshops},
+    month     = {October},
+    year      = {2025},
+    pages     = {5935-5945}
 }
 ```
 
