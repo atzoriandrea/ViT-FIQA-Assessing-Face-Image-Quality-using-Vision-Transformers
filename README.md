@@ -85,12 +85,16 @@ If you found this work helpful for your research, please cite the article with t
 }
 ```
 
+## Acknowledgements
+
+This work is based on <a href="https://github.com/deepinsight/insightface/tree/master/recognition/arcface_torch" target="_blank">InsightFace</a> for ViTs and on <a href="https://github.com/fdbtrs/CR-FIQA" target="_blank">CR-FIQA</a>. 
+
 ## License ##
 
 This project is licensed under the terms of the Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) license.
 
 Copyright (c) 2025 Fraunhofer Institute for Computer Graphics Research IGD, Darmstadt.
-
+<br>
 <div align="center">
-    <img width="60%" src="https://www.iuk.fraunhofer.de/content/dam/iuk/de/images/Logos/22_igd_web.svg">
+    <img width="50%" src="https://www.iuk.fraunhofer.de/content/dam/iuk/de/images/Logos/22_igd_web.svg">
 </div>
