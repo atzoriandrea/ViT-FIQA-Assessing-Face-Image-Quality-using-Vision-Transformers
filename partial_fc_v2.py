@@ -169,51 +169,18 @@ class PartialFC_V2(torch.nn.Module):
         if self.fp16:
             logits = logits.float()
         logits = logits.clamp(-1, 1)
-        # print(logits.size())
-        '''
-        with torch.no_grad():
-           __index_positive = torch.where(labels != -1)[0]
-
-           distmat=logits[index_positive.view(-1),labels.view(-1)].detach().clone()
-           print(distmat.size())
-           print(qs.size())
-
-           max_negative_cloned=logits.detach().clone()
-           max_negative_cloned[index_positive.view(-1),labels[index_positive].view(-1)]= -1e-12
-           max_negative, _=max_negative_cloned.max(dim=1)
-           qs_predict=distmat#/max_negative[index_positive.view(-1),None]
-        '''
-        # logits, positive, max_negative = self.margin_softmax(logits, labels)
-        # with torch.no_grad():
+        
         orginal_logits = logits.detach().clone()
 
-        logits, ccs, ncss, confidence = self.margin_softmax(logits, labels)
-
-        # cr_qs= torch.cat(all_gather_qs(crfiqa,self.world_size,crfiqa.device))
-        # cr_qs_negative=all_gather_qs(max_negative,self.world_size,max_negative.device)
+        logits, ccs, ncss = self.margin_softmax(logits, labels)
 
         loss = self.dist_cross_entropy(logits, labels)
 
         idx = torch.where(labels != -1)[0]
-        '''
-        #Do partial compute on each GPU
-        partial_fiqa=self.criterion_qs(crfiqa,qs[idx,:])
-        distributed.all_reduce(partial_fiqa,distributed.ReduceOp.AVG)
-        #cr_qs_gathere=torch.cat(all_gather_qs(partial_fiqa,self.world_size,partial_fiqa.device)).mean()
-        # from local to global
-        '''
-        # FIQ as JD divergence
-        '''
-        relative_distance= compute_relative_distance(ccs,ncss)
-        '''
-
-        ## Convert CRFIQA to probability
-        # ccs.exp_()
-        # ncss.exp_()
+        
         relative_distance = ccs / ncss
 
         partial_fiqa = self.criterion_qs(relative_distance, qs[idx, :])
-        partial_fiqa /= confidence
         partial_fiqa = partial_fiqa.mean()
 
         distributed.all_reduce(partial_fiqa, distributed.ReduceOp.AVG)
@@ -283,38 +250,6 @@ def Distprobaility(logits: torch.Tensor, label: torch.Tensor, qs: torch.Tensor, 
 
     return loss.clamp_min_(1e-30).mean()
 
-
-def js_divergence(p, q):
-    """Compute JS divergence between two probability distributions p and q."""
-    m = 0.5 * (p + q)
-    kl_pm = p * (torch.log(p + 1e-10) - torch.log(m + 1e-10))
-    kl_qm = q * (torch.log(q + 1e-10) - torch.log(m + 1e-10))
-    return 0.5 * (kl_pm + kl_qm).sum(dim=1)
-
-
-def kl_divergence(p, q):
-    """Compute KL divergence between two probability distributions p and q."""
-    return torch.sum(p * (torch.log(p + 1e-10) - torch.log(q + 1e-10)))
-
-
-def compute_relative_distance(cos_pos, cos_neg):
-    """Compute relative distance using KL divergence in PyTorch."""
-
-    # Step 1: Convert similarities to probabilities using softmax
-    similarities = torch.stack([torch.flatten(cos_pos), torch.flatten(cos_neg)], dim=1)
-    probabilities = F.softmax(similarities, dim=1)
-
-    # Step 2: Use a uniform distribution as the reference
-    # uniform = torch.full_like(probabilities, (0.9,0.1),device=probabilities.device)
-    uniform = torch.tile(torch.tensor([1.0 - 1e-9, 1e-9]), (probabilities.shape[0], 1)).to(probabilities.device)
-
-    # uniform= torch.full_like((probabilities.shape[0],1), 0.9,device=probabilities.device)
-    # uniform= torch.stack([torch.flatten(uniform), torch.flatten(1.0 - uniform)],dim=1)
-
-    # Step 4: Compute KL divergence
-    js_values = 1.0 - js_divergence(probabilities, uniform)
-
-    return torch.unsqueeze(js_values, 1)
 
 
 class DistCrossEntropyFunc(torch.autograd.Function):
