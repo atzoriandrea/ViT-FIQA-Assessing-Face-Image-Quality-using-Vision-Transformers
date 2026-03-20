@@ -52,16 +52,8 @@ class CombinedMarginLoss(torch.nn.Module):
 
         with torch.no_grad():
            ccs=target_logit.detach().clone()
-
            max_negative_cloned = logits.detach().clone()
            max_negative_cloned[index_positive, labels[index_positive].view(-1)] = -torch.inf
-           #sorted_, idx_ = torch.sort(max_negative_cloned, dim=1, descending=True)
-           #----
-           #sorted_ = sorted_[:,:5]
-           #sorted_ += 1
-           #sorted_ = torch.mean(sorted_, dim=1)
-           #nccs = sorted_ + (1 + 1e-9)
-           #-----
            nccs, _ = max_negative_cloned.max(dim=1)
            nccs += (1 + 1e-9)
 
@@ -165,74 +157,3 @@ class CosFace(torch.nn.Module):
         logits = logits * self.s
         return logits
 
-
-class CombinedMarginLossV2(torch.nn.Module):
-    def __init__(self,
-                 s,
-                 m1,
-                 m2,
-                 m3,
-                 interclass_filtering_threshold=0,
-                 num_classes=10000):
-        super().__init__()
-        self.s = s
-        self.m1 = m1
-        self.m2 = m2
-        self.m3 = m3
-        self.interclass_filtering_threshold = interclass_filtering_threshold
-        self.worse_sim = torch.ones(size=(num_classes,)) * -1
-        self.softmax = Softmax(dim=1)
-
-        # For ArcFace
-        self.cos_m = math.cos(self.m2)
-        self.sin_m = math.sin(self.m2)
-        self.theta = math.cos(math.pi - self.m2)
-        self.sinmm = math.sin(math.pi - self.m2) * self.m2
-        self.easy_margin = False
-
-
-
-    def forward(self, logits, labels):
-        index_positive = torch.where(labels != -1)[0]
-        self.worse_sim = self.worse_sim.to(logits.device)
-
-        if self.interclass_filtering_threshold > 0:
-            with torch.no_grad():
-                dirty = logits > self.interclass_filtering_threshold
-                dirty = dirty.float()
-                mask = torch.ones([index_positive.size(0), logits.size(1)], device=logits.device)
-                mask.scatter_(1, labels[index_positive], 0)
-                dirty[index_positive] *= mask
-                tensor_mul = 1 - dirty
-            logits = tensor_mul * logits
-
-        target_logit = logits[index_positive, labels[index_positive].view(-1)]
-
-        with torch.no_grad():
-            #confidence = self.softmax(logits)[torch.arange(logits.size()[0]).unsqueeze(1), labels.view(-1, 1)]
-            ccs = target_logit.detach().clone()
-
-            max_negative_cloned = logits.detach().clone()
-            max_negative_cloned[index_positive, labels[index_positive].view(-1)] = -torch.inf
-            nccs, nccs_idx = max_negative_cloned.max(dim=1)
-            
-
-            nccs += (1 + 1e-9)
-
-        if self.m1 == 1.0 and self.m3 == 0.0:
-            with torch.no_grad():
-                target_logit.arccos_()
-                logits.arccos_()
-                final_target_logit = target_logit + self.m2
-                logits[index_positive, labels[index_positive].view(-1)] = final_target_logit
-                logits.cos_()
-            logits = logits * self.s
-
-        elif self.m3 > 0:
-            final_target_logit = target_logit - self.m3
-            logits[index_positive, labels[index_positive].view(-1)] = final_target_logit
-            logits = logits * self.s
-        else:
-            raise
-
-        return logits, ccs[:, None], nccs[index_positive, None]#, #confidence[index_positive]
