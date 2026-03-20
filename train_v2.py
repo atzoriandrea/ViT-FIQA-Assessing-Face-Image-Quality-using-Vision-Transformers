@@ -122,7 +122,7 @@ def main(args):
     # FIXME using gradient checkpoint if there are some unused parameters will cause error
     backbone._set_static_graph()
 
-    margin_loss = CombinedMarginLossV2(
+    margin_loss = CombinedMarginLoss(
         64,
         cfg.margin_list[0],
         cfg.margin_list[1],
