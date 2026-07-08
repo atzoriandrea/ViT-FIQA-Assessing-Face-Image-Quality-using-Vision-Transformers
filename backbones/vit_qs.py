@@ -289,29 +289,20 @@ class VisionTransformer(nn.Module):
                 x = checkpoint(func, x)
             else:
                 x = func(x)
-        #x = x[:,0], self.norm(x[:,1:].float())
         x= self.norm(x.float())
         if self.training and self.mask_ratio > 0:
             mask_tokens = self.mask_token.repeat(x.shape[0], ids_restore.shape[1] - x.shape[1], 1)
             x_ = torch.cat([x[:, :, :], mask_tokens], dim=1)  # no cls token
             x_ = torch.gather(x_, dim=1, index=ids_restore.unsqueeze(-1).repeat(1, 1, x.shape[2]))  # unshuffle
             x = x_
-        #x_qs=
-        #x=
-        #return torch.reshape( x, (B, (self.num_patches+1) * self.embed_dim))
 
-        return x #torch.reshape( x[:,1:], (B, self.num_patches * self.embed_dim)), torch.reshape( x[:,0],(B,self.embed_dim))
+        return x 
 
     def forward(self, x):
         x = self.forward_features(x)
         B = x.shape[0]
 
-        if self.mode=="full":
-            x = torch.reshape( x, (B, (self.num_patches + 1) * self.embed_dim))
-            x = self.feature(x)
-            qs = self.head_qs(x)
-
-        elif self.mode=="token":
+        if self.mode=="token":
             x, qs = torch.reshape( x[:,1:], (B, self.num_patches * self.embed_dim)), torch.reshape( x[:,0],(B,self.embed_dim))
             x = self.feature(x)
             qs = self.head_qs(qs)
