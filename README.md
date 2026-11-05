@@ -91,7 +91,7 @@ This work is based on <a href="https://github.com/deepinsight/insightface/tree/m
 
 ## License ##
 
-This project is licensed under the terms of the Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) license.
+This project is licensed under the terms of the Creative Commons Attribution 4.0 International (CC BY 4.0) license.
 
 Copyright (c) 2025 Fraunhofer Institute for Computer Graphics Research IGD, Darmstadt.
 <br>
