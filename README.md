@@ -92,6 +92,7 @@ This work is based on <a href="https://github.com/deepinsight/insightface/tree/m
 ## License ##
 
 This project is licensed under the MIT License. See the [LICENCE](https://github.com/atzoriandrea/ViT-FIQA-Assessing-Face-Image-Quality-using-Vision-Transformers/blob/master/LICENCE) file for details.
+
 Copyright (c) 2025 Fraunhofer Institute for Computer Graphics Research IGD, Darmstadt.
 <br>
 <br>
